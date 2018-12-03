@@ -1,0 +1,32 @@
+server:
+  port: 8764
+spring:
+  application:
+    name : microservice-zipkin-server
+  sleuth:
+    #表示当前程序不使用sleuth
+    enabled: false
+  datasource:
+    #数据库脚本创建地址，当有多个是可使用[x]表示集合第几个元素
+    schema[0]: classpath:/zipkin.sql
+    #spring boot数据源配置
+    url: jdbc:mysql://192.168.1.220:3306/zipkin??autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&zeroDateTimeBehavior=convertToNull&useSSL=false
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    initialize: true
+    continue-on-error: true
+  #rabbitmq配置
+  rabbitmq:
+    host: 1.1.1.25
+    port: 5672
+    virtual-host: my_vhost
+    publisher-confirms: true
+    username: admin
+    password: admin
+
+
+zipkin:
+  storage:
+    #表示zipkin数据存储方式是mysql
+    type: mysql
